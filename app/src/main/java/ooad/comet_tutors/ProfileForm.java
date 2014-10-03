@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 
 public class ProfileForm extends Activity {
@@ -12,6 +14,9 @@ public class ProfileForm extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_form);
+        Spinner spinner = (Spinner) findViewById(R.id.type);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.Profile_Type, android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
     }
 
 
