@@ -60,6 +60,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>{
         this.startActivity(intent);
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

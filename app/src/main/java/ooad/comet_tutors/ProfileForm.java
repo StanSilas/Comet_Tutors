@@ -1,24 +1,48 @@
 package ooad.comet_tutors;
 
 import android.app.Activity;
+import android.app.TabActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TabHost;
+import android.widget.TabWidget;
 
 
-public class ProfileForm extends Activity {
+public class ProfileForm extends TabActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_form);
-        Spinner spinner = (Spinner) findViewById(R.id.type);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.Profile_Type, android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        TabHost tabHost = (TabHost)findViewById(android.R.id.tabhost);
+
+        TabHost.TabSpec tab1 = tabHost.newTabSpec("Account");
+        TabHost.TabSpec tab2 = tabHost.newTabSpec("Information");
+        TabHost.TabSpec tab3 = tabHost.newTabSpec("Schedule");
+
+        tab1.setIndicator("Account");
+        tab1.setContent(new Intent(this,AccountForm.class));
+
+        tab2.setIndicator("Information");
+        tab2.setContent(new Intent(this,InformationForm.class));
+
+        tab3.setIndicator("Schedule");
+        tab3.setContent(new Intent(this,ScheduleForm.class));
+
+        tabHost.addTab(tab1);
+        tabHost.addTab(tab2);
+        tabHost.addTab(tab3);
     }
 
+    public void switchTab(int tab)
+    {
+        TabHost tabHost = (TabHost) findViewById(android.R.id.tabhost);
+        tabHost.setCurrentTab(tab);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

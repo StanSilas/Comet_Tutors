@@ -21,6 +21,18 @@
             android:name=".ProfileForm"
             android:label="@string/title_activity_profile_form" >
         </activity>
+        <activity
+            android:name=".InformationForm"
+            android:label="@string/title_activity_information_form" >
+        </activity>
+        <activity
+            android:name=".ScheduleForm"
+            android:label="@string/title_activity_schedule_form" >
+        </activity>
+        <activity
+            android:name=".AccountForm"
+            android:label="@string/title_activity_account_form" >
+        </activity>
     </application>
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->

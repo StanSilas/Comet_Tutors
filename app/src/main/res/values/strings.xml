@@ -5,5 +5,8 @@
     <string name="title_activity_profile_form">ProfileForm</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_information_form">InformationForm</string>
+    <string name="title_activity_schedule_form">ScheduleForm</string>
+    <string name="title_activity_account_form">AccountForm</string>
 
 </resources>
