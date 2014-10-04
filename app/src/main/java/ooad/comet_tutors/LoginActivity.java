@@ -4,9 +4,12 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.ContentResolver;
 import android.content.CursorLoader;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
@@ -56,8 +59,25 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>{
 
     public void registerForm(View view)
     {
-        Intent intent = new Intent(this, ProfileForm.class);
-        this.startActivity(intent);
+        final View superView = view;
+        String accounts[] = new String[] {"Student", "Tutor"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+        builder.setTitle("What type of account?")
+                .setItems(accounts, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which)
+                        {
+                            case 0:
+                                break;
+                            case 1:
+                                Intent intent = new Intent(superView.getContext(), ProfileForm.class);
+                                superView.getContext().startActivity(intent);
+                                break;
+                        }
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
 
