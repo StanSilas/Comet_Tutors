@@ -1,15 +1,15 @@
 package ooad.comet_tutors;
 
-import android.app.Activity;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 import android.widget.TabHost;
-import android.widget.TabWidget;
+
+import ooad.comet_tutors.TutorForm.AccountForm;
+import ooad.comet_tutors.TutorForm.InformationForm;
+import ooad.comet_tutors.TutorForm.ScheduleForm;
 
 
 public class ProfileForm extends TabActivity {

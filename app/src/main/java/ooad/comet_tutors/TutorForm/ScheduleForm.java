@@ -1,4 +1,4 @@
-package ooad.comet_tutors;
+package ooad.comet_tutors.TutorForm;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -10,7 +10,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.TimePicker;
 
@@ -19,8 +22,11 @@ import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
+
+import ooad.comet_tutors.BackendClasses.Tutor;
+import ooad.comet_tutors.ExpandableList.ExpandListAdapter;
+import ooad.comet_tutors.R;
 
 
 public class ScheduleForm extends Activity {
@@ -30,6 +36,34 @@ public class ScheduleForm extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule_form);
+    }
+
+    public void createAccount(View view)
+    {
+        EditText email = (EditText)findViewById(R.id.emailTextBox);
+        EditText password = (EditText) findViewById(R.id.passwordTextBox);
+        EditText fName = (EditText) findViewById(R.id.firstNameTextBox);
+        EditText lName = (EditText) findViewById(R.id.lastNameTextBox);
+        EditText pNumber = (EditText) findViewById(R.id.phoneNumberTextBox);
+        ExpandableListView expertiseList = (ExpandableListView) findViewById(R.id.expertise);
+        List<String> expertise = new ArrayList<String>();
+        List<String> availability = new ArrayList<String>();
+        for (String str : schedule)
+        {
+            availability.add(str);
+        }
+        List<CheckBox> lst = InformationForm.getExpandableListChildren();
+        for (CheckBox box : lst)
+        {
+            if (box.isChecked()) {
+                expertise.add((String)box.getText());
+            }
+        }
+        for (int i = 0; i < expertise.size(); i++)
+        {
+            Log.w("Expertise", expertise.get(i));
+        }
+        Tutor tutor = new Tutor(email.getText().toString(), password.getText().toString(), fName.getText().toString(), lName.getText().toString(), pNumber.getText().toString(), expertise, availability);
     }
 
     public void addToSchedule(View view)

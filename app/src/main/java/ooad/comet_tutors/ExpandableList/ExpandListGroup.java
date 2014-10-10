@@ -1,4 +1,4 @@
-package ooad.comet_tutors;
+package ooad.comet_tutors.ExpandableList;
 
 import java.util.List;
 

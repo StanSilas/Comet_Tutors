@@ -1,4 +1,4 @@
-package ooad.comet_tutors;
+package ooad.comet_tutors.TutorForm;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TabHost;
 import android.widget.TextView;
+
+import ooad.comet_tutors.R;
 
 
 public class AccountForm extends Activity {

@@ -1,22 +1,35 @@
-package ooad.comet_tutors;
+package ooad.comet_tutors.TutorForm;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.CheckBox;
 import android.widget.ExpandableListView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import ooad.comet_tutors.ExpandableList.ExpandListAdapter;
+import ooad.comet_tutors.ExpandableList.ExpandListGroup;
+import ooad.comet_tutors.R;
+
 
 public class InformationForm extends Activity {
+
+    static List<CheckBox> lst = new ArrayList<CheckBox>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_information_form);
         createExpandableList();
+    }
+
+    public static List<CheckBox> getExpandableListChildren()
+    {
+        return lst;
     }
 
     public void createExpandableList()
@@ -50,6 +63,14 @@ public class InformationForm extends Activity {
         final ExpandableListView list = (ExpandableListView) findViewById(R.id.expertise);
         final ExpandListAdapter adapter = new ExpandListAdapter(this, courseList);
         list.setAdapter(adapter);
+
+        for (int i = 0; i < adapter.getGroupCount(); i++)
+        {
+            for (int j = 0; j < ((ExpandListGroup)adapter.getGroup(i)).getChild().getList().size(); j++)
+            {
+                lst.add(((ExpandListGroup) adapter.getGroup(i)).getChild().getList().get(j));
+            }
+        }
     }
 
 

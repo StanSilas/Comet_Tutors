@@ -22,15 +22,15 @@
             android:label="@string/title_activity_profile_form" >
         </activity>
         <activity
-            android:name=".InformationForm"
+            android:name=".TutorForm.InformationForm"
             android:label="@string/title_activity_information_form" >
         </activity>
         <activity
-            android:name=".ScheduleForm"
+            android:name=".TutorForm.ScheduleForm"
             android:label="@string/title_activity_schedule_form" >
         </activity>
         <activity
-            android:name=".AccountForm"
+            android:name=".TutorForm.AccountForm"
             android:label="@string/title_activity_account_form" >
         </activity>
     </application>

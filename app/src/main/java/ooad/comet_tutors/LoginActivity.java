@@ -8,6 +8,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -56,6 +57,12 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>{
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private static Context context;
+
+    public static Context getContext()
+    {
+        return context;
+    }
 
     public void registerForm(View view)
     {
@@ -85,11 +92,10 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
-
+        context = mEmailView.getContext();
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
