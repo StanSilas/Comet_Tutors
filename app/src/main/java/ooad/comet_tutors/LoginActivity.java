@@ -33,6 +33,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import ooad.comet_tutors.BackendClasses.Student;
+
 
 /**
  * A login screen that offers login via email/password.
@@ -75,10 +77,14 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>{
                         switch (which)
                         {
                             case 0:
+                                Intent StudentIntent = new Intent(superView.getContext(), ProfileForm.class);
+                                StudentIntent.putExtra("Type", "Student");
+                                superView.getContext().startActivity(StudentIntent);
                                 break;
                             case 1:
-                                Intent intent = new Intent(superView.getContext(), ProfileForm.class);
-                                superView.getContext().startActivity(intent);
+                                Intent TutorIntent = new Intent(superView.getContext(), ProfileForm.class);
+                                TutorIntent.putExtra("Type", "Tutor");
+                                superView.getContext().startActivity(TutorIntent);
                                 break;
                         }
                     }

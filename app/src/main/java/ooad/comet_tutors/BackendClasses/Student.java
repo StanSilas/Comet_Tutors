@@ -1,38 +1,23 @@
 package ooad.comet_tutors.BackendClasses;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
- * Created by Dillon on 10/8/2014.
+ * Created by Dillon on 10/10/2014.
  */
-public class Tutor {
-
+public class Student {
     String email;
     String password;
     String fName;
     String lName;
     String pNumber;
-    List<String> expertise = new ArrayList<String>();
-    List<String> schedule = new ArrayList<String>();
 
-    public Tutor() {
-    }
+    public Student(){}
 
-    public Tutor(String email, String password, String fName, String lName, String pNumber, List<String> expertise, List<String> schedule) {
+    public Student(String email, String password, String fName, String lName, String pNumber) {
         this.email = email;
         this.password = password;
         this.fName = fName;
         this.lName = lName;
         this.pNumber = pNumber;
-        for (String exp : expertise)
-        {
-            this.expertise.add(exp);
-        }
-        for (String sch : schedule)
-        {
-            this.schedule.add(sch);
-        }
     }
 
     public String getEmail() {
@@ -73,21 +58,5 @@ public class Tutor {
 
     public void setpNumber(String pNumber) {
         this.pNumber = pNumber;
-    }
-
-    public List<String> getExpertise() {
-        return expertise;
-    }
-
-    public void setExpertise(List<String> expertise) {
-        this.expertise = expertise;
-    }
-
-    public List<String> getSchedule() {
-        return schedule;
-    }
-
-    public void setSchedule(List<String> schedule) {
-        this.schedule = schedule;
     }
 }

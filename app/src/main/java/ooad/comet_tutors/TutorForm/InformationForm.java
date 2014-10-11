@@ -2,10 +2,13 @@ package ooad.comet_tutors.TutorForm;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
 
 import java.util.ArrayList;
@@ -13,6 +16,7 @@ import java.util.List;
 
 import ooad.comet_tutors.ExpandableList.ExpandListAdapter;
 import ooad.comet_tutors.ExpandableList.ExpandListGroup;
+import ooad.comet_tutors.ProfileForm;
 import ooad.comet_tutors.R;
 
 
@@ -25,6 +29,57 @@ public class InformationForm extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_information_form);
         createExpandableList();
+        EditText fName = (EditText) findViewById(R.id.firstNameTextBox);
+        fName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+                ProfileForm.tutor.setfName(charSequence.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        EditText lName = (EditText) findViewById(R.id.lastNameTextBox);
+        lName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+                ProfileForm.tutor.setlName(charSequence.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        EditText pNumber = (EditText) findViewById(R.id.phoneNumberTextBox);
+        pNumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+                ProfileForm.tutor.setpNumber(charSequence.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 
     public static List<CheckBox> getExpandableListChildren()

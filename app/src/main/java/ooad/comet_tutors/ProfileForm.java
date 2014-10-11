@@ -3,10 +3,13 @@ package ooad.comet_tutors;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
 import android.widget.TabHost;
 
+import ooad.comet_tutors.BackendClasses.Tutor;
 import ooad.comet_tutors.TutorForm.AccountForm;
 import ooad.comet_tutors.TutorForm.InformationForm;
 import ooad.comet_tutors.TutorForm.ScheduleForm;
@@ -14,12 +17,14 @@ import ooad.comet_tutors.TutorForm.ScheduleForm;
 
 public class ProfileForm extends TabActivity {
 
+    public static Tutor tutor = new Tutor();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_form);
         TabHost tabHost = (TabHost)findViewById(android.R.id.tabhost);
-
+        Log.w("Test", getIntent().getStringExtra("Type"));
         TabHost.TabSpec tab1 = tabHost.newTabSpec("Account");
         TabHost.TabSpec tab2 = tabHost.newTabSpec("Information");
         TabHost.TabSpec tab3 = tabHost.newTabSpec("Schedule");
@@ -28,14 +33,22 @@ public class ProfileForm extends TabActivity {
         tab1.setContent(new Intent(this,AccountForm.class));
 
         tab2.setIndicator("Information");
-        tab2.setContent(new Intent(this,InformationForm.class));
+        if (getIntent().getStringExtra("Type").equals("Student")) {
+            Intent information = new Intent(this, InformationForm.class);
+            LinearLayout ll = (LinearLayout) findViewById(R.id.LinearLayout);
+            ll.removeView(findViewById(R.id.expertise));
+            tab2.setContent(information);
+        }
+        else tab2.setContent(new Intent(this, InformationForm.class));
 
         tab3.setIndicator("Schedule");
         tab3.setContent(new Intent(this,ScheduleForm.class));
 
+
         tabHost.addTab(tab1);
         tabHost.addTab(tab2);
-        tabHost.addTab(tab3);
+
+        if (getIntent().getStringExtra("Type").equals("Tutor"))tabHost.addTab(tab3);
     }
 
     public void switchTab(int tab)

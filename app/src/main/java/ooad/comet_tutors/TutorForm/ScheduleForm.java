@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,6 +27,7 @@ import java.util.List;
 
 import ooad.comet_tutors.BackendClasses.Tutor;
 import ooad.comet_tutors.ExpandableList.ExpandListAdapter;
+import ooad.comet_tutors.ProfileForm;
 import ooad.comet_tutors.R;
 
 
@@ -40,30 +42,25 @@ public class ScheduleForm extends Activity {
 
     public void createAccount(View view)
     {
-        EditText email = (EditText)findViewById(R.id.emailTextBox);
-        EditText password = (EditText) findViewById(R.id.passwordTextBox);
-        EditText fName = (EditText) findViewById(R.id.firstNameTextBox);
-        EditText lName = (EditText) findViewById(R.id.lastNameTextBox);
-        EditText pNumber = (EditText) findViewById(R.id.phoneNumberTextBox);
-        ExpandableListView expertiseList = (ExpandableListView) findViewById(R.id.expertise);
         List<String> expertise = new ArrayList<String>();
         List<String> availability = new ArrayList<String>();
+        ExpandableListView expertiseList = (ExpandableListView) findViewById(R.id.expertise);
+
         for (String str : schedule)
         {
             availability.add(str);
         }
+
         List<CheckBox> lst = InformationForm.getExpandableListChildren();
+
         for (CheckBox box : lst)
         {
             if (box.isChecked()) {
                 expertise.add((String)box.getText());
             }
         }
-        for (int i = 0; i < expertise.size(); i++)
-        {
-            Log.w("Expertise", expertise.get(i));
-        }
-        Tutor tutor = new Tutor(email.getText().toString(), password.getText().toString(), fName.getText().toString(), lName.getText().toString(), pNumber.getText().toString(), expertise, availability);
+        ProfileForm.tutor.setExpertise(expertise);
+        ProfileForm.tutor.setSchedule(availability);
     }
 
     public void addToSchedule(View view)
