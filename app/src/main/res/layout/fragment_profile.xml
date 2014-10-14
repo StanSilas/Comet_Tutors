@@ -1,0 +1,94 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ooad.comet_tutors.PrimarySequence.ProfileFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="left|top">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="First Name: "
+            android:id="@+id/fNameTextBox"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Medium Text"
+            android:id="@+id/textView3"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/fNameTextBox"
+            android:layout_toEndOf="@+id/fNameTextBox" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Last Name: "
+            android:id="@+id/lNameTextBox"
+            android:layout_below="@+id/fNameTextBox"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Phone Number: "
+            android:id="@+id/pNumberTextBox"
+            android:layout_below="@+id/lNameTextBox"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Email: "
+            android:id="@+id/emailTextBox"
+            android:layout_below="@+id/pNumberTextBox"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Medium Text"
+            android:id="@+id/textView4"
+            android:layout_toEndOf="@+id/lNameTextBox"
+            android:layout_below="@+id/fNameTextBox"
+            android:layout_toRightOf="@+id/lNameTextBox" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Medium Text"
+            android:id="@+id/textView5"
+            android:layout_alignTop="@+id/pNumberTextBox"
+            android:layout_toRightOf="@+id/pNumberTextBox"
+            android:layout_toEndOf="@+id/pNumberTextBox" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Medium Text"
+            android:id="@+id/textView6"
+            android:layout_below="@+id/pNumberTextBox"
+            android:layout_toRightOf="@+id/emailTextBox"
+            android:layout_toEndOf="@+id/emailTextBox" />
+    </RelativeLayout>
+</FrameLayout>

@@ -1,13 +1,11 @@
-package ooad.comet_tutors;
+package ooad.comet_tutors.CommonForms;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.LoaderManager.LoaderCallbacks;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
@@ -30,10 +28,15 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
+
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import ooad.comet_tutors.BackendClasses.Student;
+import ooad.comet_tutors.PrimarySequence.MainFlow;
+import ooad.comet_tutors.R;
 
 
 /**
@@ -179,8 +182,8 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>{
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
+            Intent mainFlow = new Intent(this, MainFlow.class);
+            getContext().startActivity(mainFlow);
         }
     }
     private boolean isEmailValid(String email) {

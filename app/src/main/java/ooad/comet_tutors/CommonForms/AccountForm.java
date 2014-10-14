@@ -1,18 +1,14 @@
-package ooad.comet_tutors.TutorForm;
+package ooad.comet_tutors.CommonForms;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TabHost;
-import android.widget.TextView;
 
-import ooad.comet_tutors.ProfileForm;
 import ooad.comet_tutors.R;
 
 
@@ -31,7 +27,8 @@ public class AccountForm extends Activity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-                ProfileForm.tutor.setEmail(charSequence.toString());
+                if (getIntent().getStringExtra("Type").equals("Tutor")) ProfileForm.tutor.setEmail(charSequence.toString());
+                else ProfileForm.student.setEmail(charSequence.toString());
             }
 
             @Override
@@ -48,7 +45,8 @@ public class AccountForm extends Activity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-                ProfileForm.tutor.setPassword(charSequence.toString());
+                if (getIntent().getStringExtra("Type").equals("Tutor")) ProfileForm.tutor.setPassword(charSequence.toString());
+                else ProfileForm.student.setPassword(charSequence.toString());
             }
 
             @Override

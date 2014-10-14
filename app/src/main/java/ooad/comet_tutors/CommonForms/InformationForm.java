@@ -1,23 +1,26 @@
-package ooad.comet_tutors.TutorForm;
+package ooad.comet_tutors.CommonForms;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import ooad.comet_tutors.ExpandableList.ExpandListAdapter;
 import ooad.comet_tutors.ExpandableList.ExpandListGroup;
-import ooad.comet_tutors.ProfileForm;
 import ooad.comet_tutors.R;
+import ooad.comet_tutors.StudentForm.Student;
+import ooad.comet_tutors.TutorForm.Tutor;
 
 
 public class InformationForm extends Activity {
@@ -38,7 +41,8 @@ public class InformationForm extends Activity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-                ProfileForm.tutor.setfName(charSequence.toString());
+                if (getIntent().getStringExtra("Type").equals("Tutor")) ProfileForm.tutor.setFirstName(charSequence.toString());
+                else ProfileForm.student.setFirstName(charSequence.toString());
             }
 
             @Override
@@ -55,7 +59,8 @@ public class InformationForm extends Activity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-                ProfileForm.tutor.setlName(charSequence.toString());
+                if (getIntent().getStringExtra("Type").equals("Tutor")) ProfileForm.tutor.setLastName(charSequence.toString());
+                else ProfileForm.student.setLastName(charSequence.toString());
             }
 
             @Override
@@ -72,7 +77,8 @@ public class InformationForm extends Activity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-                ProfileForm.tutor.setpNumber(charSequence.toString());
+                if (getIntent().getStringExtra("Type").equals("Tutor")) ProfileForm.tutor.setPhoneNumber(charSequence.toString());
+                else ProfileForm.student.setPhoneNumber(charSequence.toString());
             }
 
             @Override
@@ -89,6 +95,8 @@ public class InformationForm extends Activity {
 
     public void createExpandableList()
     {
+        LinearLayout ll = (LinearLayout) findViewById(R.id.LinearLayout);
+
         final List<String> mathCourses = new ArrayList<String>() {{
             add("Calculus");
             add("Geometry");
@@ -114,18 +122,29 @@ public class InformationForm extends Activity {
             add(new ExpandListGroup("Science", scienceCourses));
             add(new ExpandListGroup("Computer Science", computerCourses));
         }};
-
-        final ExpandableListView list = (ExpandableListView) findViewById(R.id.expertise);
-        final ExpandListAdapter adapter = new ExpandListAdapter(this, courseList);
-        list.setAdapter(adapter);
-
-        for (int i = 0; i < adapter.getGroupCount(); i++)
+        if (getIntent().getStringExtra("Type").equals("Student")) {
+            ll.removeView(findViewById(R.id.expertise));
+            ll.removeView(findViewById(R.id.textView));
+        }
+        else
         {
-            for (int j = 0; j < ((ExpandListGroup)adapter.getGroup(i)).getChild().getList().size(); j++)
-            {
-                lst.add(((ExpandListGroup) adapter.getGroup(i)).getChild().getList().get(j));
+            ll.removeView(findViewById(R.id.button));
+            final ExpandableListView list = (ExpandableListView) findViewById(R.id.expertise);
+            final ExpandListAdapter adapter = new ExpandListAdapter(this, courseList);
+            list.setAdapter(adapter);
+
+            for (int i = 0; i < adapter.getGroupCount(); i++) {
+                for (int j = 0; j < ((ExpandListGroup) adapter.getGroup(i)).getChild().getList().size(); j++) {
+                    lst.add(((ExpandListGroup) adapter.getGroup(i)).getChild().getList().get(j));
+                }
             }
         }
+    }
+
+    public void createAccount(View view) {
+        Student student = ProfileForm.student;
+        Database db = new Database(this);
+        db.execute(student);
     }
 
 

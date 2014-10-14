@@ -1,4 +1,4 @@
-package ooad.comet_tutors;
+package ooad.comet_tutors.CommonForms;
 
 import android.app.TabActivity;
 import android.content.Intent;
@@ -6,18 +6,18 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.LinearLayout;
 import android.widget.TabHost;
 
-import ooad.comet_tutors.BackendClasses.Tutor;
-import ooad.comet_tutors.TutorForm.AccountForm;
-import ooad.comet_tutors.TutorForm.InformationForm;
+import ooad.comet_tutors.StudentForm.Student;
+import ooad.comet_tutors.TutorForm.Tutor;
+import ooad.comet_tutors.R;
 import ooad.comet_tutors.TutorForm.ScheduleForm;
 
 
 public class ProfileForm extends TabActivity {
 
     public static Tutor tutor = new Tutor();
+    public static Student student = new Student();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,20 +30,19 @@ public class ProfileForm extends TabActivity {
         TabHost.TabSpec tab3 = tabHost.newTabSpec("Schedule");
 
         tab1.setIndicator("Account");
-        tab1.setContent(new Intent(this,AccountForm.class));
+        Intent accountForm = new Intent(this, AccountForm.class);
+        if (getIntent().getStringExtra("Type").equals("Student")) accountForm.putExtra("Type", "Student");
+        else accountForm.putExtra("Type", "Tutor");
+        tab1.setContent(accountForm);
 
         tab2.setIndicator("Information");
-        if (getIntent().getStringExtra("Type").equals("Student")) {
-            Intent information = new Intent(this, InformationForm.class);
-            LinearLayout ll = (LinearLayout) findViewById(R.id.LinearLayout);
-            ll.removeView(findViewById(R.id.expertise));
-            tab2.setContent(information);
-        }
-        else tab2.setContent(new Intent(this, InformationForm.class));
+        Intent informationForm = new Intent(this, InformationForm.class);
+        if (getIntent().getStringExtra("Type").equals("Student")) informationForm.putExtra("Type", "Student");
+        else informationForm.putExtra("Type", "Tutor");
+        tab2.setContent(informationForm);
 
         tab3.setIndicator("Schedule");
         tab3.setContent(new Intent(this,ScheduleForm.class));
-
 
         tabHost.addTab(tab1);
         tabHost.addTab(tab2);

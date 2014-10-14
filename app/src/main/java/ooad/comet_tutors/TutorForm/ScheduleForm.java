@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,7 +12,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.TimePicker;
@@ -25,9 +23,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import ooad.comet_tutors.BackendClasses.Tutor;
-import ooad.comet_tutors.ExpandableList.ExpandListAdapter;
-import ooad.comet_tutors.ProfileForm;
+import ooad.comet_tutors.CommonForms.Database;
+import ooad.comet_tutors.CommonForms.InformationForm;
+import ooad.comet_tutors.CommonForms.ProfileForm;
 import ooad.comet_tutors.R;
 
 
@@ -59,8 +57,11 @@ public class ScheduleForm extends Activity {
                 expertise.add((String)box.getText());
             }
         }
-        ProfileForm.tutor.setExpertise(expertise);
-        ProfileForm.tutor.setSchedule(availability);
+        Tutor tutor = ProfileForm.tutor;
+        tutor.setExpertise(expertise);
+        tutor.setSchedule(availability);
+        Database db = new Database(this);
+        db.execute(tutor);
     }
 
     public void addToSchedule(View view)

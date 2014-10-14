@@ -2,15 +2,13 @@ package ooad.comet_tutors.ExpandableList;
 
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import ooad.comet_tutors.LoginActivity;
+import ooad.comet_tutors.CommonForms.LoginActivity;
 import ooad.comet_tutors.R;
 
 /**

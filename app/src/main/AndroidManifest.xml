@@ -8,7 +8,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".LoginActivity"
+            android:name=".CommonForms.LoginActivity"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustResize|stateVisible" >
             <intent-filter>
@@ -18,11 +18,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ProfileForm"
+            android:name=".CommonForms.ProfileForm"
             android:label="@string/title_activity_profile_form" >
         </activity>
         <activity
-            android:name=".TutorForm.InformationForm"
+            android:name=".CommonForms.InformationForm"
             android:label="@string/title_activity_information_form" >
         </activity>
         <activity
@@ -30,8 +30,12 @@
             android:label="@string/title_activity_schedule_form" >
         </activity>
         <activity
-            android:name=".TutorForm.AccountForm"
+            android:name=".CommonForms.AccountForm"
             android:label="@string/title_activity_account_form" >
+        </activity>
+        <activity
+            android:name=".PrimarySequence.MainFlow"
+            android:label="@string/title_activity_main_flow" >
         </activity>
     </application>
 
@@ -39,5 +43,6 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
 </manifest>
