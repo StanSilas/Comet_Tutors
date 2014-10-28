@@ -1,4 +1,4 @@
-package ooad.comet_tutors.PrimarySequence;
+package ooad.comet_tutors.Controllers.PrimarySequence;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -8,18 +8,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import ooad.comet_tutors.List.ListViewAdapter;
-import ooad.comet_tutors.List.Matches;
+import ooad.comet_tutors.TechnicalServices.List.ListViewAdapter;
+import ooad.comet_tutors.TechnicalServices.List.Matches;
 import ooad.comet_tutors.R;
 
-import ooad.comet_tutors.PrimarySequence.dummy.DummyContent;
+import ooad.comet_tutors.Controllers.PrimarySequence.dummy.DummyContent;
 
 /**
  * A fragment representing a list of Items.

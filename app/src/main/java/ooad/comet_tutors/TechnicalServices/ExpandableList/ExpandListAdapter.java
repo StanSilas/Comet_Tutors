@@ -1,4 +1,4 @@
-package ooad.comet_tutors.ExpandableList;
+package ooad.comet_tutors.TechnicalServices.ExpandableList;
 
 import android.content.Context;
 import android.view.LayoutInflater;

@@ -1,4 +1,4 @@
-package ooad.comet_tutors.List;
+package ooad.comet_tutors.TechnicalServices.List;
 
 import android.content.Context;
 import android.view.LayoutInflater;

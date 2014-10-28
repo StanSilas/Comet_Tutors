@@ -1,4 +1,4 @@
-package ooad.comet_tutors.PrimarySequence.dummy;
+package ooad.comet_tutors.Controllers.PrimarySequence.dummy;
 
 import java.util.ArrayList;
 import java.util.HashMap;

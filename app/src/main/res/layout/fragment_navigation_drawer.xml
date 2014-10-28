@@ -7,4 +7,4 @@
     android:dividerHeight="0dp"
     android:background="#cccc"
     android:id="@+id/ListView"
-    tools:context="ooad.comet_tutors.PrimarySequence.NavigationDrawerFragment" />
+    tools:context="ooad.comet_tutors.Controllers.PrimarySequence.NavigationDrawerFragment" />

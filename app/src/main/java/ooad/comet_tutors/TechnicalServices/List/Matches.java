@@ -1,6 +1,6 @@
-package ooad.comet_tutors.List;
+package ooad.comet_tutors.TechnicalServices.List;
 
-import ooad.comet_tutors.TutorForm.Tutor;
+import ooad.comet_tutors.Models.Tutor;
 
 /**
  * Created by Dillon on 10/25/2014.

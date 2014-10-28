@@ -1,4 +1,4 @@
-package ooad.comet_tutors.PrimarySequence;
+package ooad.comet_tutors.Controllers.PrimarySequence;
 
 import android.app.Activity;
 import android.net.Uri;

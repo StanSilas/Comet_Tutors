@@ -1,4 +1,4 @@
-package ooad.comet_tutors.CommonForms;
+package ooad.comet_tutors.TechnicalServices;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -9,12 +9,15 @@ import com.microsoft.windowsazure.mobileservices.*;
 import java.net.MalformedURLException;
 import java.util.List;
 
-import ooad.comet_tutors.List.Matches;
-import ooad.comet_tutors.PrimarySequence.MainFlow;
-import ooad.comet_tutors.PrimarySequence.MatchesFragment;
-import ooad.comet_tutors.StudentForm.Student;
+import ooad.comet_tutors.Models.Has_Expertise;
+import ooad.comet_tutors.Models.Has_Query;
+import ooad.comet_tutors.Models.Has_Schedule;
+import ooad.comet_tutors.TechnicalServices.List.Matches;
+import ooad.comet_tutors.Models.Student;
+import ooad.comet_tutors.Models.Tutor;
+import ooad.comet_tutors.Controllers.PrimarySequence.MainFlow;
+import ooad.comet_tutors.Controllers.PrimarySequence.MatchesFragment;
 import ooad.comet_tutors.TutorForm.ScheduleForm;
-import ooad.comet_tutors.TutorForm.Tutor;
 
 /**
  * Created by Dillon on 10/11/2014.

@@ -1,4 +1,4 @@
-package ooad.comet_tutors.PrimarySequence;
+package ooad.comet_tutors.Controllers.PrimarySequence;
 
 import android.app.Activity;
 
@@ -28,16 +28,15 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
-import ooad.comet_tutors.CommonForms.Database;
-import ooad.comet_tutors.CommonForms.Has_Expertise;
-import ooad.comet_tutors.CommonForms.Has_Query;
-import ooad.comet_tutors.CommonForms.LoginActivity;
-import ooad.comet_tutors.List.Matches;
-import ooad.comet_tutors.ExpandableList.ExpandListAdapter;
-import ooad.comet_tutors.ExpandableList.ExpandListGroup;
+import ooad.comet_tutors.TechnicalServices.Database;
+import ooad.comet_tutors.Models.Has_Expertise;
+import ooad.comet_tutors.Models.Has_Query;
+import ooad.comet_tutors.Controllers.Login.LoginActivity;
+import ooad.comet_tutors.TechnicalServices.ExpandableList.ExpandListAdapter;
+import ooad.comet_tutors.TechnicalServices.ExpandableList.ExpandListGroup;
 import ooad.comet_tutors.R;
-import ooad.comet_tutors.StudentForm.Student;
-import ooad.comet_tutors.TutorForm.Tutor;
+import ooad.comet_tutors.Models.Student;
+import ooad.comet_tutors.Models.Tutor;
 
 public class MainFlow extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks, ProfileFragment.OnFragmentInteractionListener, AccountFragment.OnFragmentInteractionListener, MatchesFragment.OnFragmentInteractionListener {

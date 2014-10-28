@@ -24,13 +24,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import ooad.comet_tutors.CommonForms.Database;
-import ooad.comet_tutors.CommonForms.Has_Expertise;
-import ooad.comet_tutors.CommonForms.Has_Query;
-import ooad.comet_tutors.CommonForms.Has_Schedule;
-import ooad.comet_tutors.CommonForms.InformationForm;
-import ooad.comet_tutors.CommonForms.ProfileForm;
+import ooad.comet_tutors.TechnicalServices.Database;
+import ooad.comet_tutors.Models.Has_Expertise;
+import ooad.comet_tutors.Models.Has_Schedule;
+import ooad.comet_tutors.Controllers.Login.InformationForm;
+import ooad.comet_tutors.Controllers.Login.ProfileForm;
 import ooad.comet_tutors.R;
+import ooad.comet_tutors.Models.Tutor;
 
 
 public class ScheduleForm extends Activity {

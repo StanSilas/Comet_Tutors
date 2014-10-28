@@ -1,4 +1,4 @@
-package ooad.comet_tutors.CommonForms;
+package ooad.comet_tutors.Models;
 
 /**
  * Created by Dillon on 10/20/2014.

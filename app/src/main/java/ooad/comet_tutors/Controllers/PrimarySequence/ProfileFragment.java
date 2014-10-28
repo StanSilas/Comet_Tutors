@@ -1,9 +1,8 @@
-package ooad.comet_tutors.PrimarySequence;
+package ooad.comet_tutors.Controllers.PrimarySequence;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -13,22 +12,18 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import ooad.comet_tutors.CommonForms.Has_Expertise;
-import ooad.comet_tutors.CommonForms.Has_Query;
-import ooad.comet_tutors.CommonForms.LoginActivity;
+import ooad.comet_tutors.Models.Has_Expertise;
+import ooad.comet_tutors.Models.Has_Query;
+import ooad.comet_tutors.Controllers.Login.LoginActivity;
 import ooad.comet_tutors.R;
-import ooad.comet_tutors.StudentForm.Student;
-import ooad.comet_tutors.TutorForm.Tutor;
+import ooad.comet_tutors.Models.Student;
+import ooad.comet_tutors.Models.Tutor;
 
 
 /**

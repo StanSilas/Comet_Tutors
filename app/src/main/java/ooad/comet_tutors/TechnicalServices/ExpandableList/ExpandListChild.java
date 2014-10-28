@@ -1,4 +1,4 @@
-package ooad.comet_tutors.ExpandableList;
+package ooad.comet_tutors.TechnicalServices.ExpandableList;
 
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +8,7 @@ import android.widget.LinearLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-import ooad.comet_tutors.CommonForms.LoginActivity;
+import ooad.comet_tutors.Controllers.Login.LoginActivity;
 import ooad.comet_tutors.R;
 
 /**
