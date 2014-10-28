@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Medium Text"
-            android:id="@+id/textView3"
+            android:id="@+id/firstname"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/fNameTextBox"
             android:layout_toEndOf="@+id/fNameTextBox" />
@@ -66,7 +66,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Medium Text"
-            android:id="@+id/textView4"
+            android:id="@+id/lastname"
             android:layout_toEndOf="@+id/lNameTextBox"
             android:layout_below="@+id/fNameTextBox"
             android:layout_toRightOf="@+id/lNameTextBox" />
@@ -76,7 +76,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Medium Text"
-            android:id="@+id/textView5"
+            android:id="@+id/phonenumber"
             android:layout_alignTop="@+id/pNumberTextBox"
             android:layout_toRightOf="@+id/pNumberTextBox"
             android:layout_toEndOf="@+id/pNumberTextBox" />
@@ -86,9 +86,64 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Medium Text"
-            android:id="@+id/textView6"
+            android:id="@+id/email"
             android:layout_below="@+id/pNumberTextBox"
             android:layout_toRightOf="@+id/emailTextBox"
             android:layout_toEndOf="@+id/emailTextBox" />
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tutorQueriesList"
+            android:layout_below="@+id/emailTextBox"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="54dp"
+            android:dividerHeight="2sp"
+            android:layout_alignRight="@+id/phonenumber"
+            android:layout_alignEnd="@+id/phonenumber" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Tutor Queries"
+            android:id="@+id/listTitle"
+            android:layout_above="@+id/addQuery"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Query"
+            android:id="@+id/addQuery"
+            android:onClick="addToList"
+            android:layout_alignTop="@+id/tutorQueriesList"
+            android:layout_toRightOf="@+id/tutorQueriesList"
+            android:layout_toEndOf="@+id/tutorQueriesList" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            android:id="@+id/button"
+            android:onClick="save"
+            android:layout_below="@+id/addQuery"
+            android:layout_toRightOf="@+id/tutorQueriesList"
+            android:layout_toEndOf="@+id/tutorQueriesList"
+            android:layout_alignRight="@+id/addQuery"
+            android:layout_alignEnd="@+id/addQuery" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Match"
+            android:id="@+id/matchButton"
+            android:layout_below="@+id/button"
+            android:onClick="match"
+            android:layout_toRightOf="@+id/tutorQueriesList"
+            android:layout_toEndOf="@+id/tutorQueriesList"
+            android:layout_marginTop="37dp" />
     </RelativeLayout>
 </FrameLayout>

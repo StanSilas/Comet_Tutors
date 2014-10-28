@@ -6,6 +6,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.LoaderManager.LoaderCallbacks;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
@@ -19,6 +20,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -27,16 +29,25 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
+import com.microsoft.windowsazure.mobileservices.MobileServiceJsonTable;
+import com.microsoft.windowsazure.mobileservices.MobileServiceTable;
+import com.microsoft.windowsazure.mobileservices.ServiceFilterResponse;
+import com.microsoft.windowsazure.mobileservices.TableOperationCallback;
+import com.microsoft.windowsazure.mobileservices.TableQueryCallback;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import ooad.comet_tutors.PrimarySequence.MainFlow;
 import ooad.comet_tutors.R;
+import ooad.comet_tutors.StudentForm.Student;
+import ooad.comet_tutors.TutorForm.Tutor;
 
 
 /**
@@ -63,6 +74,12 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>{
     private View mProgressView;
     private View mLoginFormView;
     private static Context context;
+    public static Student student = null;
+    public static Tutor tutor = null;
+    public static List<Has_Query> hasQueryList = new ArrayList<Has_Query>();
+    public static List<Has_Expertise> hasExpertiseList = new ArrayList<Has_Expertise>();
+    private int successCounter = 0;
+    private ProgressDialog pd;
 
     public static Context getContext()
     {
@@ -181,8 +198,34 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>{
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            showProgress(true);
+            UserLoginTask ul = new UserLoginTask(mEmailView.getText().toString(), mPasswordView.getText().toString());
+            ul.execute();
+            pd = ProgressDialog.show(this, "Login", "Attempting to login...", true, false, null);
+            try {
+                ul.get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void login(Boolean success)
+    {
+        if (!success) successCounter++;
+        if (successCounter == 2)
+        {
+            mPasswordView.setError(getString(R.string.error_incorrect_password));
+            successCounter = 0;
+            pd.dismiss();
+        }
+        if (success)
+        {
+            pd.dismiss();
             Intent mainFlow = new Intent(this, MainFlow.class);
+            if (student != null) mainFlow.putExtra("Profile", (android.os.Parcelable) student);
+            else mainFlow.putExtra("Profile", (android.os.Parcelable) tutor);
             getContext().startActivity(mainFlow);
         }
     }
@@ -193,7 +236,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>{
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        return password.length() > 4;
+        return password.length() >= 4;
     }
 
     /**
@@ -305,9 +348,58 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>{
             // TODO: attempt authentication against a network service.
 
             try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
+                final MobileServiceClient mClient = new MobileServiceClient("https://comettutors.azure-mobile.net/", "IwckhnZstWukKYYPLIOWdyjtnadGqP75", context);
+                MobileServiceTable<Student> studentTable = mClient.getTable(Student.class);
+                studentTable.where()
+                        .field("email").eq(mEmail)
+                        .and()
+                        .field("password").eq(mPassword)
+                        .execute(new TableQueryCallback<Student>() {
+                            @Override
+                            public void onCompleted(List<Student> result, int count, Exception exception, ServiceFilterResponse response) {
+                                if (result.size() > 0) {
+                                    LoginActivity.student = new Student(result.get(0));
+                                    Database db = new Database(context);
+                                    db.match(LoginActivity.student);
+                                    MobileServiceTable<Has_Query> queryTable = mClient.getTable(Has_Query.class);
+                                    queryTable.where()
+                                            .field("email").eq(student.getEmail())
+                                            .execute(new TableQueryCallback<Has_Query>() {
+                                                @Override
+                                                public void onCompleted(List<Has_Query> result, int count, Exception exception, ServiceFilterResponse response) {
+                                                    hasQueryList = result;
+                                                    login(true);
+                                                }
+                                            });
+                                    //login(true);
+                                } else login(false);
+                            }
+                        });
+                MobileServiceTable<Tutor> tutorTable = mClient.getTable(Tutor.class);
+                tutorTable.where()
+                        .field("email").eq(mEmail)
+                        .and()
+                        .field("password").eq(mPassword)
+                        .execute(new TableQueryCallback<Tutor>() {
+                            @Override
+                            public void onCompleted(List<Tutor> result, int count, Exception exception, ServiceFilterResponse response) {
+                                if (result.size() > 0) {
+                                    LoginActivity.tutor = new Tutor(result.get(0));
+                                    MobileServiceTable<Has_Expertise> expertiseTable = mClient.getTable(Has_Expertise.class);
+                                    expertiseTable.where()
+                                            .field("email").eq(tutor.getEmail())
+                                            .execute(new TableQueryCallback<Has_Expertise>() {
+                                                @Override
+                                                public void onCompleted(List<Has_Expertise> result, int count, Exception exception, ServiceFilterResponse response) {
+                                                    hasExpertiseList = result;
+                                                    login(true);
+                                                }
+                                            });
+                                } else login(false);
+                            }
+                        });
+
+            } catch (MalformedURLException e) {
                 return false;
             }
 
@@ -329,7 +421,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>{
             showProgress(false);
 
             if (success) {
-                finish();
+                //finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();

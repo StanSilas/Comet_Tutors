@@ -68,7 +68,6 @@ public class ExpandListAdapter extends BaseExpandableListAdapter {
         TextView tv = (TextView) view.findViewById(R.id.textView);
         ExpandListGroup entry = (ExpandListGroup) getGroup(i);
         tv.setText(entry.getRootCourse());
-
         return view;
     }
 

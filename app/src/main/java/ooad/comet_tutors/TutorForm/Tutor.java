@@ -1,5 +1,8 @@
 package ooad.comet_tutors.TutorForm;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +10,7 @@ import java.util.List;
 /**
  * Created by Dillon on 10/8/2014.
  */
-public class Tutor {
+public class Tutor implements Parcelable{
 
     String id;
     String email;
@@ -18,7 +21,23 @@ public class Tutor {
     transient List<String> expertise = new ArrayList<String>();
     transient List<String> schedule = new ArrayList<String>();
 
-    public Tutor() {
+    public Tutor(){}
+    public Tutor(Tutor tutor)
+    {
+        this.id = tutor.id;
+        this.email = tutor.email;
+        this.password = tutor.password;
+        this.FirstName = tutor.FirstName;
+        this.LastName = tutor.LastName;
+        this.PhoneNumber = tutor.PhoneNumber;
+        for (String str : tutor.expertise)
+        {
+            this.expertise.add(str);
+        }
+        for (String str : tutor.schedule)
+        {
+            this.schedule.add(str);
+        }
     }
 
     public Tutor(String email, String password, String fName, String lName, String pNumber, List<String> expertise, List<String> schedule) {
@@ -91,5 +110,23 @@ public class Tutor {
 
     public void setSchedule(List<String> schedule) {
         this.schedule = schedule;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeStringArray(new String[] {this.email, this.password, this.FirstName, this.LastName, this.PhoneNumber});
     }
 }

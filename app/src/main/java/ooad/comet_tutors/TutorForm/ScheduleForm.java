@@ -2,6 +2,7 @@ package ooad.comet_tutors.TutorForm;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,6 +25,9 @@ import java.util.Calendar;
 import java.util.List;
 
 import ooad.comet_tutors.CommonForms.Database;
+import ooad.comet_tutors.CommonForms.Has_Expertise;
+import ooad.comet_tutors.CommonForms.Has_Query;
+import ooad.comet_tutors.CommonForms.Has_Schedule;
 import ooad.comet_tutors.CommonForms.InformationForm;
 import ooad.comet_tutors.CommonForms.ProfileForm;
 import ooad.comet_tutors.R;
@@ -32,21 +36,28 @@ import ooad.comet_tutors.R;
 public class ScheduleForm extends Activity {
 
     private List<String> schedule = new ArrayList<String>();
+    public List<String> expertise = new ArrayList<String>();
+    public List<String> availability = new ArrayList<String>();
+    public static List<Has_Expertise> hasExpertise = new ArrayList<Has_Expertise>();
+    public static List<Has_Schedule> hasSchedule = new ArrayList<Has_Schedule>();
+    public static Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule_form);
+        context = this;
     }
 
     public void createAccount(View view)
     {
-        List<String> expertise = new ArrayList<String>();
-        List<String> availability = new ArrayList<String>();
         ExpandableListView expertiseList = (ExpandableListView) findViewById(R.id.expertise);
+
+        Tutor tutor = ProfileForm.tutor;
 
         for (String str : schedule)
         {
             availability.add(str);
+            hasSchedule.add(new Has_Schedule(tutor.getEmail(), str));
         }
 
         List<CheckBox> lst = InformationForm.getExpandableListChildren();
@@ -55,13 +66,27 @@ public class ScheduleForm extends Activity {
         {
             if (box.isChecked()) {
                 expertise.add((String)box.getText());
+                hasExpertise.add(new Has_Expertise(tutor.getEmail(), (String)box.getText()));
             }
         }
-        Tutor tutor = ProfileForm.tutor;
         tutor.setExpertise(expertise);
         tutor.setSchedule(availability);
         Database db = new Database(this);
-        db.execute(tutor);
+        db.insert(tutor);
+    }
+
+    public static void createAccountPart2()
+    {
+        Database db = new Database(context);
+
+        for (Has_Schedule sched : hasSchedule)
+        {
+            db.insert(sched);
+        }
+        for (Has_Expertise expert : hasExpertise)
+        {
+            db.insert(expert);
+        }
     }
 
     public void addToSchedule(View view)

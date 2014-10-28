@@ -10,9 +10,9 @@
     <string name="title_activity_account_form">AccountForm</string>
     <string name="title_activity_main_flow">MainFlow</string>
     <string name="title_section1">Profile</string>
-    <string name="title_section2op1">Tutors</string>
-    <string name="title_section3">Account</string>
-    <string name="title_section2op2">Students</string>
+    <string name="title_section2">Account</string>
+    <string name="title_section3op1">Requests</string>
+    <string name="title_section3op2">Matches</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>

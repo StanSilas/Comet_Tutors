@@ -132,7 +132,6 @@ public class InformationForm extends Activity {
             final ExpandableListView list = (ExpandableListView) findViewById(R.id.expertise);
             final ExpandListAdapter adapter = new ExpandListAdapter(this, courseList);
             list.setAdapter(adapter);
-
             for (int i = 0; i < adapter.getGroupCount(); i++) {
                 for (int j = 0; j < ((ExpandListGroup) adapter.getGroup(i)).getChild().getList().size(); j++) {
                     lst.add(((ExpandListGroup) adapter.getGroup(i)).getChild().getList().get(j));
@@ -144,7 +143,7 @@ public class InformationForm extends Activity {
     public void createAccount(View view) {
         Student student = ProfileForm.student;
         Database db = new Database(this);
-        db.execute(student);
+        db.insert(student);
     }
 
 
