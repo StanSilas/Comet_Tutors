@@ -26,7 +26,7 @@
             android:label="@string/title_activity_information_form" >
         </activity>
         <activity
-            android:name=".TutorForm.ScheduleForm"
+            android:name=".Controllers.Login.ScheduleForm"
             android:label="@string/title_activity_schedule_form" >
         </activity>
         <activity

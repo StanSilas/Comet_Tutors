@@ -1,4 +1,4 @@
-package ooad.comet_tutors.TutorForm;
+package ooad.comet_tutors.TechnicalServices.List;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

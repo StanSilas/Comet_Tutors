@@ -17,7 +17,7 @@ import ooad.comet_tutors.Models.Student;
 import ooad.comet_tutors.Models.Tutor;
 import ooad.comet_tutors.Controllers.PrimarySequence.MainFlow;
 import ooad.comet_tutors.Controllers.PrimarySequence.MatchesFragment;
-import ooad.comet_tutors.TutorForm.ScheduleForm;
+import ooad.comet_tutors.Controllers.Login.ScheduleForm;
 
 /**
  * Created by Dillon on 10/11/2014.
