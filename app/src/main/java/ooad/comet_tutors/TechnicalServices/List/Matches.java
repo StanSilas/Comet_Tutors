@@ -1,5 +1,7 @@
 package ooad.comet_tutors.TechnicalServices.List;
 
+import android.util.Log;
+
 import ooad.comet_tutors.Models.Tutor;
 
 /**
@@ -22,6 +24,11 @@ public class Matches {
         this.lastName = lastName;
         this.expertise = expertise;
         this.tutor = tutor;
+    }
+
+    public void test()
+    {
+        Log.w("Test", "OnClickListener");
     }
 
     public String getFirstName() {

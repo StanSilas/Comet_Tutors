@@ -4,6 +4,7 @@ package ooad.comet_tutors.Controllers.PrimarySequence;
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
+import android.content.Context;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -22,7 +23,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import ooad.comet_tutors.Controllers.Login.LoginActivity;
 import ooad.comet_tutors.R;
+import ooad.comet_tutors.TechnicalServices.Database;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -105,8 +108,8 @@ public class NavigationDrawerFragment extends Fragment {
                 android.R.id.text1,
                 new String[]{
                         getString(R.string.title_section1),
-                        getString(R.string.title_section2),
-                        getString(R.string.title_section3op2),
+                        LoginActivity.student == null ? getString(R.string.title_section3op1) : getString(R.string.title_section3op2),
+                        getString(R.string.title_section4),
                 }));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;
@@ -250,7 +253,8 @@ public class NavigationDrawerFragment extends Fragment {
         }
 
         if (item.getItemId() == R.id.action_example) {
-            Toast.makeText(getActivity(), "Example action.", Toast.LENGTH_SHORT).show();
+            Database db = new Database(MainFlow.context);
+            db.refresh();
             return true;
         }
 

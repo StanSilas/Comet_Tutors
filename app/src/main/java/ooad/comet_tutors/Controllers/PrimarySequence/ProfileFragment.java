@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import java.util.List;
 import ooad.comet_tutors.Models.Has_Expertise;
 import ooad.comet_tutors.Models.Has_Query;
 import ooad.comet_tutors.Controllers.Login.LoginActivity;
+import ooad.comet_tutors.Models.Has_Schedule;
 import ooad.comet_tutors.R;
 import ooad.comet_tutors.Models.Student;
 import ooad.comet_tutors.Models.Tutor;
@@ -42,6 +44,7 @@ public class ProfileFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     public static List<String> queriesList = new ArrayList<String>();
     public static List<String> expertiseList = new ArrayList<String>();
+    public static List<String> scheduleList = new ArrayList<String>();
     private Student student = null;
     private Tutor tutor = null;
     private static View view;
@@ -96,11 +99,11 @@ public class ProfileFragment extends Fragment {
         else tutor = new Tutor(LoginActivity.tutor);
         TextView firstName = (TextView) view.findViewById(R.id.firstname);
         TextView lastName = (TextView) view.findViewById(R.id.lastname);
-        TextView phoneNumber = (TextView) view.findViewById(R.id.phonenumber);
+        TextView phoneNumber = (TextView) view.findViewById(R.id.tutorPhoneNumber);
         TextView email = (TextView) view.findViewById(R.id.email);
 
         if (MainFlow.type.equals("Student")) {
-            ListView queries = (ListView) view.findViewById(R.id.tutorQueriesList);
+            ListView queries = (ListView) view.findViewById(R.id.queryList);
             List<Has_Query> lst = LoginActivity.hasQueryList;
             if (init == 0) {
                 init++;
@@ -131,6 +134,13 @@ public class ProfileFragment extends Fragment {
                     alert.show();
                 }
             });
+            RelativeLayout rl = (RelativeLayout) view.findViewById(R.id.RelativeLayout);
+            ListView schedule = (ListView) view.findViewById(R.id.tutorScheduleList);
+            Button scheduleButton = (Button) view.findViewById(R.id.addSchedule);
+            TextView scheduleTitle = (TextView) view.findViewById(R.id.scheduleTitle);
+            rl.removeView(schedule);
+            rl.removeView(scheduleButton);
+            rl.removeView(scheduleTitle);
 
             firstName.setText(student.getFirstName());
             lastName.setText(student.getLastName());
@@ -139,13 +149,23 @@ public class ProfileFragment extends Fragment {
         }
         else
         {
-            ListView expertise = (ListView) view.findViewById(R.id.tutorQueriesList);
+            ListView expertise = (ListView) view.findViewById(R.id.queryList);
+            ListView schedule = (ListView) view.findViewById(R.id.tutorScheduleList);
             List<Has_Expertise> lst = LoginActivity.hasExpertiseList;
-            for (Has_Expertise expert : lst) {
-                expertiseList.add(expert.getExpertise());
+            List<Has_Schedule> lst2 = LoginActivity.hasScheduleList;
+            if (init == 0) {
+                init++;
+                for (Has_Expertise expert : lst) {
+                    expertiseList.add(expert.getExpertise());
+                }
+                for (Has_Schedule sched : lst2) {
+                    scheduleList.add(sched.getSchedule());
+                }
             }
             final ArrayAdapter<String> adapter = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_list_item_1, android.R.id.text1, expertiseList);
+            final ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_list_item_1, android.R.id.text1, scheduleList);
             expertise.setAdapter(adapter);
+            schedule.setAdapter(adapter2);
             expertise.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -154,7 +174,28 @@ public class ProfileFragment extends Fragment {
                     builder.setMessage("Are you sure you want to delete this item?")
                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-                                    queriesList.remove(index);
+                                    expertiseList.remove(index);
+                                    adapter.notifyDataSetChanged();
+                                }
+                            })
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // User cancelled the dialog
+                                }
+                            });
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                }
+            });
+            schedule.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    final int index = i;
+                    AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                    builder.setMessage("Are you sure you want to delete this item?")
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    scheduleList.remove(index);
                                     adapter.notifyDataSetChanged();
                                 }
                             })
@@ -178,9 +219,14 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
-    public static ListView getListView()
+    public static ListView getExpertiseListView()
     {
-        return (ListView) view.findViewById(R.id.tutorQueriesList);
+        return (ListView) view.findViewById(R.id.queryList);
+    }
+
+    public static ListView getScheduleListView()
+    {
+        return (ListView) view.findViewById(R.id.tutorScheduleList);
     }
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -208,7 +254,7 @@ public class ProfileFragment extends Fragment {
 
     public static void addToList(List<String> queriesList)
     {
-        ListView queries = (ListView) view.findViewById(R.id.tutorQueriesList);
+        ListView queries = (ListView) view.findViewById(R.id.queryList);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_list_item_1, android.R.id.text1, queriesList);
         queries.setAdapter(adapter);
     }

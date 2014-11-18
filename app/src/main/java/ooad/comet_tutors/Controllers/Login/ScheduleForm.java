@@ -2,6 +2,7 @@ package ooad.comet_tutors.Controllers.Login;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -27,8 +28,6 @@ import java.util.List;
 import ooad.comet_tutors.TechnicalServices.Database;
 import ooad.comet_tutors.Models.Has_Expertise;
 import ooad.comet_tutors.Models.Has_Schedule;
-import ooad.comet_tutors.Controllers.Login.InformationForm;
-import ooad.comet_tutors.Controllers.Login.ProfileForm;
 import ooad.comet_tutors.R;
 import ooad.comet_tutors.Models.Tutor;
 
@@ -41,15 +40,21 @@ public class ScheduleForm extends Activity {
     public static List<Has_Expertise> hasExpertise = new ArrayList<Has_Expertise>();
     public static List<Has_Schedule> hasSchedule = new ArrayList<Has_Schedule>();
     public static Context context;
+    public static Activity activity;
+    public static ProgressDialog pd;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule_form);
         context = this;
+        activity = this;
     }
 
     public void createAccount(View view)
     {
+        pd = ProgressDialog.show(view.getContext(), "Creating", "Creating account...", true, false, null);
+
         ExpandableListView expertiseList = (ExpandableListView) findViewById(R.id.expertise);
 
         Tutor tutor = ProfileForm.tutor;
@@ -82,19 +87,32 @@ public class ScheduleForm extends Activity {
         for (Has_Schedule sched : hasSchedule)
         {
             db.insert(sched);
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
         for (Has_Expertise expert : hasExpertise)
         {
             db.insert(expert);
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
+        dismissPD();
+        activity.finish();
     }
 
+    public static void dismissPD() {pd.dismiss();}
     public void addToSchedule(View view)
     {
 
-        DatePicker datePicker = (DatePicker) findViewById(R.id.datePicker);
+        DatePicker datePicker = (DatePicker) findViewById(R.id.addDatePicker);
         TimePicker timePicker = (TimePicker) findViewById(R.id.timePicker);
-        ListView lv = (ListView) findViewById(R.id.listView);
+        ListView lv = (ListView) findViewById(R.id.tutorScheduleList);
         String selectedDate = DateFormat.getDateInstance().format(datePicker.getCalendarView().getDate());
         Format formatter;
         Calendar calendar = Calendar.getInstance();

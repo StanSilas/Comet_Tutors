@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,13 +22,20 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
+import android.widget.TimePicker;
 
+import java.text.DateFormat;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
+import ooad.comet_tutors.Models.Has_Schedule;
 import ooad.comet_tutors.TechnicalServices.Database;
 import ooad.comet_tutors.Models.Has_Expertise;
 import ooad.comet_tutors.Models.Has_Query;
@@ -39,7 +47,7 @@ import ooad.comet_tutors.Models.Student;
 import ooad.comet_tutors.Models.Tutor;
 
 public class MainFlow extends Activity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks, ProfileFragment.OnFragmentInteractionListener, AccountFragment.OnFragmentInteractionListener, MatchesFragment.OnFragmentInteractionListener {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, ProfileFragment.OnFragmentInteractionListener, AccountFragment.OnFragmentInteractionListener, MatchesFragment.OnFragmentInteractionListener, AppointmentsFragment.OnFragmentInteractionListener, RequestsFragment.OnFragmentInteractionListener {
 
     public static Tutor tutor = null;
     public static Student student = null;
@@ -66,14 +74,7 @@ public class MainFlow extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_flow);
         context = this;
-        mNavigationDrawerFragment = (NavigationDrawerFragment)
-                getFragmentManager().findFragmentById(R.id.navigation_drawer);
-        mTitle = getTitle();
 
-        // Set up the drawer.
-        mNavigationDrawerFragment.setUp(
-                R.id.navigation_drawer,
-                (DrawerLayout) findViewById(R.id.drawer_layout));
         if (LoginActivity.student != null)
         {
             type = "Student";
@@ -83,6 +84,15 @@ public class MainFlow extends Activity
             type = "Tutor";
             tutor = new Tutor(LoginActivity.tutor);
         }
+
+        mNavigationDrawerFragment = (NavigationDrawerFragment)
+                getFragmentManager().findFragmentById(R.id.navigation_drawer);
+        mTitle = getTitle();
+
+        // Set up the drawer.
+        mNavigationDrawerFragment.setUp(
+                R.id.navigation_drawer,
+                (DrawerLayout) findViewById(R.id.drawer_layout));
     }
 
     @Override
@@ -97,14 +107,22 @@ public class MainFlow extends Activity
                         .commit();
                 break;
             case 1:
-                fragmentManager.beginTransaction()
-                        .replace(R.id.container, new AccountFragment())
-                        .commit();
+                if (type.equals("Student")) {
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.container, new MatchesFragment())
+                            .commit();
+                }
+                if (type.equals("Tutor")) {
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.container, new RequestsFragment())
+                            .commit();
+                }
                 break;
             case 2:
                 fragmentManager.beginTransaction()
-                        .replace(R.id.container, new MatchesFragment())
+                        .replace(R.id.container, new AppointmentsFragment())
                         .commit();
+                break;
         }
     }
 
@@ -140,6 +158,70 @@ public class MainFlow extends Activity
         adp = adapter;
         list.setAdapter(adapter);
         return list;
+    }
+
+    public void addToScheduleList(View view)
+    {
+        View customView = View.inflate(this, R.layout.date_time_picker, null);
+        final DatePicker datePicker = (DatePicker) customView.findViewById(R.id.addDatePicker);
+        final TimePicker timePicker = (TimePicker) customView.findViewById(R.id.addTimePicker);
+        final String[] selectedDate = new String[1];
+        final View tempView = view;
+
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(view.getContext())
+                .setTitle("Schedule")
+                .setMessage("Add a new schedule date")
+                .setView(customView)
+                .setPositiveButton("Enter",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                selectedDate[0] = DateFormat.getDateInstance().format(datePicker.getCalendarView().getDate());
+                                Format formatter;
+                                Calendar calendar = Calendar.getInstance();
+                                calendar.set(Calendar.HOUR_OF_DAY, timePicker.getCurrentHour());
+                                calendar.set(Calendar.MINUTE, timePicker.getCurrentMinute());
+
+                                formatter = new SimpleDateFormat("HH:mm");
+                                selectedDate[0] += " " + formatter.format(calendar.getTime());
+                                if (!ProfileFragment.scheduleList.contains(selectedDate[0])) {
+                                    ProfileFragment.scheduleList.add(selectedDate[0]);
+
+                                    ListView dates = ProfileFragment.getScheduleListView();
+                                    final ArrayAdapter<String> adapter = new ArrayAdapter<String>(tempView.getContext(), android.R.layout.simple_list_item_1, android.R.id.text1, ProfileFragment.scheduleList);
+                                    dates.setAdapter(adapter);
+                                    dates.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                        @Override
+                                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                            final int index = i;
+                                            AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                                            builder.setMessage("Are you sure you want to delete this item?")
+                                                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                                        public void onClick(DialogInterface dialog, int id) {
+                                                            ProfileFragment.scheduleList.remove(index);
+                                                            adapter.notifyDataSetChanged();
+                                                        }
+                                                    })
+                                                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                                        public void onClick(DialogInterface dialog, int id) {
+                                                            // User cancelled the dialog
+                                                        }
+                                                    });
+                                            AlertDialog alert = builder.create();
+                                            alert.show();
+                                        }
+                                    });
+                                }
+                            }
+                        })
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //User closes window
+                            }
+                        });
+        alertDialog.show();
     }
 
     public void addToList(View view)
@@ -193,7 +275,7 @@ public class MainFlow extends Activity
                             }
                             //queryToAdd[0] = input.getText().toString();
                             //ListView queries = (ListView) tempView.findViewById(R.id.tutorQueriesList);
-                            ListView queries = ProfileFragment.getListView();
+                            ListView queries = ProfileFragment.getExpertiseListView();
                             final ArrayAdapter<String> adapter = new ArrayAdapter<String>(tempView.getContext(), android.R.layout.simple_list_item_1, android.R.id.text1, ProfileFragment.queriesList);
                             queries.setAdapter(adapter);
                             queries.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -245,7 +327,7 @@ public class MainFlow extends Activity
                                     }
                                 }
                             }
-                            ListView queries = ProfileFragment.getListView();
+                            ListView queries = ProfileFragment.getExpertiseListView();
                             final ArrayAdapter<String> adapter = new ArrayAdapter<String>(tempView.getContext(), android.R.layout.simple_list_item_1, android.R.id.text1, ProfileFragment.expertiseList);
                             queries.setAdapter(adapter);
                             queries.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -361,6 +443,11 @@ public class MainFlow extends Activity
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
+            }
+            for (String str : ProfileFragment.scheduleList) {
+                Tutor tu = tutor;
+                Has_Schedule schedule = new Has_Schedule(tutor.getId(), tutor.getEmail(), str);
+                db.insert(schedule);
             }
         }
     }

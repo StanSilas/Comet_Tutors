@@ -40,9 +40,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import ooad.comet_tutors.Models.Appointment;
 import ooad.comet_tutors.Models.Has_Expertise;
 import ooad.comet_tutors.Models.Has_Query;
 import ooad.comet_tutors.Controllers.PrimarySequence.MainFlow;
+import ooad.comet_tutors.Models.Has_Schedule;
 import ooad.comet_tutors.R;
 import ooad.comet_tutors.Models.Student;
 import ooad.comet_tutors.TechnicalServices.Database;
@@ -77,6 +79,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>{
     public static Tutor tutor = null;
     public static List<Has_Query> hasQueryList = new ArrayList<Has_Query>();
     public static List<Has_Expertise> hasExpertiseList = new ArrayList<Has_Expertise>();
+    public static List<Has_Schedule> hasScheduleList = new ArrayList<Has_Schedule>();
     private int successCounter = 0;
     private ProgressDialog pd;
 
@@ -360,6 +363,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>{
                                     LoginActivity.student = new Student(result.get(0));
                                     Database db = new Database(context);
                                     db.match(LoginActivity.student);
+                                    db.setAppointments(LoginActivity.student);
                                     MobileServiceTable<Has_Query> queryTable = mClient.getTable(Has_Query.class);
                                     queryTable.where()
                                             .field("email").eq(student.getEmail())
@@ -384,6 +388,8 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>{
                             public void onCompleted(List<Tutor> result, int count, Exception exception, ServiceFilterResponse response) {
                                 if (result.size() > 0) {
                                     LoginActivity.tutor = new Tutor(result.get(0));
+                                    Database db = new Database(context);
+                                    db.setAppointments(LoginActivity.tutor);
                                     MobileServiceTable<Has_Expertise> expertiseTable = mClient.getTable(Has_Expertise.class);
                                     expertiseTable.where()
                                             .field("email").eq(tutor.getEmail())
@@ -391,7 +397,16 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>{
                                                 @Override
                                                 public void onCompleted(List<Has_Expertise> result, int count, Exception exception, ServiceFilterResponse response) {
                                                     hasExpertiseList = result;
-                                                    login(true);
+                                                    MobileServiceTable<Has_Schedule> scheduleTable = mClient.getTable(Has_Schedule.class);
+                                                    scheduleTable.where()
+                                                            .field("email").eq(tutor.getEmail())
+                                                            .execute(new TableQueryCallback<Has_Schedule>() {
+                                                                @Override
+                                                                public void onCompleted(List<Has_Schedule> result, int count, Exception exception, ServiceFilterResponse response) {
+                                                                    hasScheduleList = result;
+                                                                    login(true);
+                                                                }
+                                                            });
                                                 }
                                             });
                                 } else login(false);

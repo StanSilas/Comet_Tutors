@@ -11,7 +11,7 @@
     <DatePicker
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/datePicker"
+        android:id="@+id/addDatePicker"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/timePicker"
-        android:layout_below="@+id/datePicker"
+        android:layout_below="@+id/addDatePicker"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -31,17 +31,17 @@
         android:text="Available Schedule"
         android:textSize="20dp"
         android:textStyle="bold"
-        android:id="@+id/textView"
-        android:layout_below="@+id/datePicker"
-        android:layout_alignLeft="@+id/listView"
-        android:layout_alignStart="@+id/listView" />
+        android:id="@+id/tutorExpertiseTextBox"
+        android:layout_below="@+id/addDatePicker"
+        android:layout_alignLeft="@+id/tutorScheduleList"
+        android:layout_alignStart="@+id/tutorScheduleList" />
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/listView"
+        android:id="@+id/tutorScheduleList"
         android:layout_toEndOf="@+id/timePicker"
-        android:layout_below="@+id/textView"
+        android:layout_below="@+id/tutorExpertiseTextBox"
         android:layout_toRightOf="@+id/timePicker" />
 
     <Button

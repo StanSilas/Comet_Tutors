@@ -13,9 +13,11 @@
     <string name="title_section2">Account</string>
     <string name="title_section3op1">Requests</string>
     <string name="title_section3op2">Matches</string>
+    <string name="title_section4">Appointments</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="action_example">Example action</string>
+    <string name="action_example">Refresh</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_selected_tutor">SelectedTutor</string>
 
 </resources>

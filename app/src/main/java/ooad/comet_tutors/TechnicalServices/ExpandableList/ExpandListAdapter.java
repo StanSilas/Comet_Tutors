@@ -65,7 +65,7 @@ public class ExpandListAdapter extends BaseExpandableListAdapter {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.group_item, null);
         }
-        TextView tv = (TextView) view.findViewById(R.id.textView);
+        TextView tv = (TextView) view.findViewById(R.id.tutorExpertiseTextBox);
         ExpandListGroup entry = (ExpandListGroup) getGroup(i);
         tv.setText(entry.getRootCourse());
         return view;

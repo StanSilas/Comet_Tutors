@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import ooad.comet_tutors.Models.Appointment;
 import ooad.comet_tutors.R;
 
 /**
@@ -60,5 +61,6 @@ public class ListViewAdapter extends ArrayAdapter<Matches> {
             }
         }
 
-        return v;    }
+        return v;
+    }
 }

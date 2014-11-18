@@ -15,7 +15,6 @@ import android.widget.LinearLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-import ooad.comet_tutors.Controllers.Login.ProfileForm;
 import ooad.comet_tutors.TechnicalServices.ExpandableList.ExpandListAdapter;
 import ooad.comet_tutors.TechnicalServices.ExpandableList.ExpandListGroup;
 import ooad.comet_tutors.R;
@@ -124,7 +123,7 @@ public class InformationForm extends Activity {
         }};
         if (getIntent().getStringExtra("Type").equals("Student")) {
             ll.removeView(findViewById(R.id.expertise));
-            ll.removeView(findViewById(R.id.textView));
+            ll.removeView(findViewById(R.id.tutorExpertiseTextBox));
         }
         else
         {

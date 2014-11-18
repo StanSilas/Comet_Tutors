@@ -1,27 +1,29 @@
 package ooad.comet_tutors.Controllers.PrimarySequence;
 
 import android.app.Activity;
-import android.content.Intent;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import ooad.comet_tutors.Models.Tutor;
-import ooad.comet_tutors.TechnicalServices.List.ListViewAdapter;
-import ooad.comet_tutors.TechnicalServices.List.Matches;
+import ooad.comet_tutors.Models.Appointment;
 import ooad.comet_tutors.R;
 
 import ooad.comet_tutors.Controllers.PrimarySequence.dummy.DummyContent;
+import ooad.comet_tutors.TechnicalServices.Database;
+import ooad.comet_tutors.TechnicalServices.List.AppointmentListAdapter;
+import ooad.comet_tutors.TechnicalServices.List.ListViewAdapter;
 
 /**
  * A fragment representing a list of Items.
@@ -32,15 +34,13 @@ import ooad.comet_tutors.Controllers.PrimarySequence.dummy.DummyContent;
  * Activities containing this fragment MUST implement the {@link Callbacks}
  * interface.
  */
-public class MatchesFragment extends Fragment implements AbsListView.OnItemClickListener {
+public class AppointmentsFragment extends Fragment implements AbsListView.OnItemClickListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    public static List<Matches> matchesList = new ArrayList<Matches>();
-    public static Tutor matchedTutor = null;
-
+    public static List<Appointment> appointmentsList = new ArrayList<Appointment>();
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -60,8 +60,8 @@ public class MatchesFragment extends Fragment implements AbsListView.OnItemClick
     private ListAdapter mAdapter;
 
     // TODO: Rename and change types of parameters
-    public static MatchesFragment newInstance(String param1, String param2) {
-        MatchesFragment fragment = new MatchesFragment();
+    public static AppointmentsFragment newInstance(String param1, String param2) {
+        AppointmentsFragment fragment = new AppointmentsFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -73,7 +73,7 @@ public class MatchesFragment extends Fragment implements AbsListView.OnItemClick
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public MatchesFragment() {
+    public AppointmentsFragment() {
     }
 
     @Override
@@ -89,21 +89,38 @@ public class MatchesFragment extends Fragment implements AbsListView.OnItemClick
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_matches_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_appointments_list, container, false);
 
-        mAdapter = new ListViewAdapter(view.getContext(), R.layout.listview_row_item, matchesList);
-
+        mAdapter = new AppointmentListAdapter(view.getContext(), R.layout.appointments_row_item, appointmentsList);
         // Set the adapter
         mListView = (AbsListView) view.findViewById(android.R.id.list);
         ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
+
         // Set OnItemClickListener so we can be notified on item clicks
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                matchedTutor = matchesList.get(i).getTutor();
-                Intent MatchesIntent = new Intent(view.getContext(), SelectedTutor.class);
-                MatchesIntent.putExtra("Expertise", matchesList.get(i).getExpertise());
-                view.getContext().startActivity(MatchesIntent);
+            public void onItemClick(AdapterView<?> adapterView, final View view, int i, long l) {
+                final int index = i;
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(view.getContext())
+                        .setTitle("Cancel")
+                        .setMessage("Are you sure you want to cancel this appointment?")
+                        .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Database db = new Database(view.getContext());
+                                db.delete(appointmentsList.get(index));
+                                appointmentsList.remove(index);
+                                mAdapter = new AppointmentListAdapter(view.getContext(), R.layout.appointments_row_item, appointmentsList);
+                                mListView.setAdapter(mAdapter);
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //Cancel deleting appointment
+                            }
+                        });
+                alertDialog.show();
             }
         });
         return view;

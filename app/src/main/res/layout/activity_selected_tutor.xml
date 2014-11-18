@@ -1,0 +1,134 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="ooad.comet_tutors.Controllers.PrimarySequence.SelectedTutor">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="First Name: "
+                android:id="@+id/fNameTextBox"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Medium Text"
+                android:id="@+id/tutorFirstName"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/fNameTextBox"
+                android:layout_toEndOf="@+id/fNameTextBox" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Last Name: "
+                android:id="@+id/lNameTextBox"
+                android:layout_below="@+id/fNameTextBox"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Phone Number: "
+                android:id="@+id/pNumberTextBox"
+                android:layout_below="@+id/lNameTextBox"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Email: "
+                android:id="@+id/emailTextBox"
+                android:layout_below="@+id/pNumberTextBox"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Medium Text"
+                android:id="@+id/tutorLastName"
+                android:layout_toEndOf="@+id/lNameTextBox"
+                android:layout_below="@+id/fNameTextBox"
+                android:layout_toRightOf="@+id/lNameTextBox" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Medium Text"
+                android:id="@+id/tutorPhoneNumber"
+                android:layout_alignTop="@+id/pNumberTextBox"
+                android:layout_toRightOf="@+id/pNumberTextBox"
+                android:layout_toEndOf="@+id/pNumberTextBox" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Medium Text"
+                android:id="@+id/tutorEmail"
+                android:layout_below="@+id/pNumberTextBox"
+                android:layout_toRightOf="@+id/emailTextBox"
+                android:layout_toEndOf="@+id/emailTextBox" />
+
+            <ListView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/queryList"
+                android:layout_below="@+id/emailTextBox"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="54dp"
+                android:dividerHeight="2sp"
+                android:layout_alignRight="@+id/tutorPhoneNumber"
+                android:layout_alignEnd="@+id/tutorPhoneNumber" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Schedule"
+                android:id="@+id/tutorSchedule"
+                android:layout_alignTop="@+id/tutorExpertiseTextBox"
+                android:layout_marginTop="40dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Expertise: "
+        android:id="@+id/tutorExpertiseTextBox"
+        android:layout_below="@+id/emailTextBox"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/tutorExpertise"
+        android:layout_toEndOf="@+id/tutorExpertiseTextBox"
+        android:layout_alignTop="@+id/tutorExpertiseTextBox"
+        android:layout_toRightOf="@+id/tutorExpertiseTextBox" />
+
+</RelativeLayout>
