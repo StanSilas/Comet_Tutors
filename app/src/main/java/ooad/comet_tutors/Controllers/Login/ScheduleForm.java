@@ -118,6 +118,7 @@ public class ScheduleForm extends Activity {
             }
         }
         dismissPD();
+        Log.w("Server", "Success");
         activity.finish();
     }
 
