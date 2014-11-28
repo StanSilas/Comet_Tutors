@@ -45,10 +45,12 @@ import ooad.comet_tutors.TechnicalServices.ExpandableList.ExpandListGroup;
 import ooad.comet_tutors.R;
 import ooad.comet_tutors.Models.Student;
 import ooad.comet_tutors.Models.Tutor;
+import ooad.comet_tutors.TechnicalServices.ProfileFactory;
 
 public class MainFlow extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks, ProfileFragment.OnFragmentInteractionListener, AccountFragment.OnFragmentInteractionListener, MatchesFragment.OnFragmentInteractionListener, AppointmentsFragment.OnFragmentInteractionListener, RequestsFragment.OnFragmentInteractionListener {
 
+    public ProfileFactory factory = ProfileFactory.getInstance();
     public static Tutor tutor = null;
     public static Student student = null;
     public static String type = null;
@@ -77,12 +79,14 @@ public class MainFlow extends Activity
 
         if (LoginActivity.student != null)
         {
-            type = "Student";
-            student = new Student(LoginActivity.student);
+            factory.setStudent(new Student(LoginActivity.student));
+            type = factory.getType();
+            student = factory.getStudent();
         }
         else {
-            type = "Tutor";
-            tutor = new Tutor(LoginActivity.tutor);
+            factory.setTutor(new Tutor(LoginActivity.tutor));
+            type = factory.getType();
+            tutor = factory.getTutor();
         }
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)

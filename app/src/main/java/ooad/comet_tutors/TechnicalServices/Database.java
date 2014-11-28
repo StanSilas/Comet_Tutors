@@ -10,6 +10,7 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import ooad.comet_tutors.Controllers.Login.InformationForm;
 import ooad.comet_tutors.Controllers.Login.LoginActivity;
 import ooad.comet_tutors.Controllers.PrimarySequence.AppointmentsFragment;
 import ooad.comet_tutors.Controllers.PrimarySequence.RequestsFragment;
@@ -359,6 +360,7 @@ public class Database {
                     mClient.getTable(Student.class).insert((Student) objects[0], new TableOperationCallback<Student>() {
                         @Override
                         public void onCompleted(Student entity, Exception exception, ServiceFilterResponse response) {
+                            InformationForm.createAccountPart2();
                         }
                     });
                 } else if (objects[0].getClass() == Tutor.class) {
@@ -366,7 +368,7 @@ public class Database {
                     mClient.getTable(Tutor.class).insert((Tutor) objects[0], new TableOperationCallback<Tutor>() {
                         @Override
                         public void onCompleted(Tutor entity, Exception exception, ServiceFilterResponse response) {
-                            createAccountPart2();
+                            ScheduleForm.createAccountPart2();
                         }
                     });
                 } else if (objects[0].getClass() == Has_Query.class) {

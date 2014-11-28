@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TabHost;
 
 import ooad.comet_tutors.Models.Student;
@@ -17,6 +18,7 @@ public class ProfileForm extends TabActivity {
 
     public static Tutor tutor = new Tutor();
     public static Student student = new Student();
+    public static TabHost staticTabHost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,15 +47,15 @@ public class ProfileForm extends TabActivity {
 
         tabHost.addTab(tab1);
         tabHost.addTab(tab2);
-
+        staticTabHost = tabHost;
         if (getIntent().getStringExtra("Type").equals("Tutor"))tabHost.addTab(tab3);
     }
 
-    public void switchTab(int tab)
+    public static void switchTab(int tab)
     {
-        TabHost tabHost = (TabHost) findViewById(android.R.id.tabhost);
-        tabHost.setCurrentTab(tab);
+        staticTabHost.setCurrentTab(tab);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

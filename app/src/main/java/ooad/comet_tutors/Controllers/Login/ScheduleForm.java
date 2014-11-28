@@ -17,6 +17,7 @@ import android.widget.DatePicker;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.Format;
@@ -53,7 +54,6 @@ public class ScheduleForm extends Activity {
 
     public void createAccount(View view)
     {
-        pd = ProgressDialog.show(view.getContext(), "Creating", "Creating account...", true, false, null);
 
         ExpandableListView expertiseList = (ExpandableListView) findViewById(R.id.expertise);
 
@@ -76,8 +76,23 @@ public class ScheduleForm extends Activity {
         }
         tutor.setExpertise(expertise);
         tutor.setSchedule(availability);
-        Database db = new Database(this);
-        db.insert(tutor);
+        if (getError(tutor) == null) {
+            pd = ProgressDialog.show(view.getContext(), "Creating", "Creating account...", true, false, null);
+            Database db = new Database(this);
+            db.insert(tutor);
+        }
+        else {
+            Toast toast = Toast.makeText(view.getContext(), getError(tutor), Toast.LENGTH_LONG);
+            toast.show();
+        }
+
+    }
+
+    public String getError(Tutor tutor) {
+        if (tutor.getFirstName() == null || tutor.getLastName() == null) return "Name cannot be null";
+        else if (tutor.getPassword().length() < 4) return "Password must be at least 4 characters long";
+        else if (!tutor.getEmail().contains("@utdallas.edu")) return "Must be a valid UTD email";
+        else return null;
     }
 
     public static void createAccountPart2()

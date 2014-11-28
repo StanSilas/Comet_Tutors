@@ -1,16 +1,20 @@
 package ooad.comet_tutors.Controllers.Login;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,11 +29,15 @@ import ooad.comet_tutors.TechnicalServices.Database;
 public class InformationForm extends Activity {
 
     static List<CheckBox> lst = new ArrayList<CheckBox>();
+    public static ProgressDialog pd;
+    public static Activity activity;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_information_form);
+        activity = this;
         createExpandableList();
         EditText fName = (EditText) findViewById(R.id.firstNameTextBox);
         fName.addTextChangedListener(new TextWatcher() {
@@ -122,6 +130,7 @@ public class InformationForm extends Activity {
             add(new ExpandListGroup("Computer Science", computerCourses));
         }};
         if (getIntent().getStringExtra("Type").equals("Student")) {
+            ll.removeView(findViewById(R.id.nextButton));
             ll.removeView(findViewById(R.id.expertise));
             ll.removeView(findViewById(R.id.tutorExpertiseTextBox));
         }
@@ -141,8 +150,31 @@ public class InformationForm extends Activity {
 
     public void createAccount(View view) {
         Student student = ProfileForm.student;
-        Database db = new Database(this);
-        db.insert(student);
+        if (getError(student) == null) {
+            pd = ProgressDialog.show(view.getContext(), "Creating", "Creating account...", true, false, null);
+            Database db = new Database(this);
+            db.insert(student);
+        }
+        else {
+            Toast toast = Toast.makeText(view.getContext(), getError(student), Toast.LENGTH_LONG);
+            toast.show();
+        }
+    }
+
+    public static void createAccountPart2() {
+        pd.dismiss();
+        activity.finish();
+    }
+
+    public String getError(Student student) {
+        if (student.getFirstName() == null || student.getLastName() == null) return "Name cannot be null";
+        else if (student.getPassword().length() < 4) return "Password must be at least 4 characters long";
+        else if (!student.getEmail().contains("@utdallas.edu")) return "Must be a valid UTD email";
+        else return null;
+    }
+
+    public void nextTab(View view) {
+        ProfileForm.switchTab(2);
     }
 
 

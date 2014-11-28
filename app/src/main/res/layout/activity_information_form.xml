@@ -36,6 +36,14 @@
         android:onClick="createAccount"
         android:id="@+id/button" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Next"
+        android:id="@+id/nextButton"
+        android:onClick="nextTab"
+        android:layout_gravity="center_horizontal" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

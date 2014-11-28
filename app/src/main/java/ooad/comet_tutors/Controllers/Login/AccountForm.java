@@ -59,6 +59,7 @@ public class AccountForm extends Activity {
 
     public void nextTab(View view)
     {
+        ProfileForm.switchTab(1);
     }
 
     @Override
